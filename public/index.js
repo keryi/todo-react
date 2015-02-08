@@ -75,22 +75,16 @@ var Todo = React.createClass({
   updateTodo: function(e) {
     e.preventDefault();
 
-    var todoId = this.refs.id.getDOMNode().value.trim();;
+    var todo = this.refs.id.getDOMNode();
 
-    if (confirm('Remove this todo?')) {
-      var todos = this.props.data;
-      var newTodos = todos.map(function(todo) {
-        if (todoId != todo.id) {
-          return todo;
-        }
-      });
-      this.setState({ data: newTodos });
+    if (confirm('Check this todo?')) {
+      $(todo).parents('.Todo').hide();
       $.ajax({
         url: this.props.url,
-        type: 'DELETE',
-        data: { 'id': todoId },
+        type: 'PUT',
+        data: { 'id': todo.value.trim() },
         success: function(data) {
-          this.setState({ data: data });
+          /* some flash message? */
         }.bind(this),
         error: function(xhr, status, err) {
           console.log(err);
@@ -104,7 +98,7 @@ var Todo = React.createClass({
 			<div className='Todo'>
         <div className='checkbox'>
           <label>
-            <input type='checkbox' onClick={this.updateTodo} ref='id' value={this.props.id} /> {this.props.title}
+            <input type='checkbox' onClick={this.updateTodo} ref='id' value={this.props.id}/> {this.props.title}
           </label>
         </div>
       </div>
