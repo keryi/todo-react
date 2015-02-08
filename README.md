@@ -2,6 +2,6 @@
 A simple todo app using react-js by facebook
 
 # how to use
-bundle install
-ruby setup.rb
-ruby server.rb
+1. bundle install
+2. ruby setup.rb
+3. ruby server.rb
